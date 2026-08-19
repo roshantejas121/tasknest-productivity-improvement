@@ -50,9 +50,13 @@ The following checks pass locally:
 
 ## 6. Deployment Links
 
-- Frontend Deployment Link: To be added after deployment.
-- Backend Deployment Link: To be added after deployment.
+The repository is prepared for the assignment’s split deployment model: build the frontend with Vite and set `VITE_API_URL` to the deployed backend URL; run the backend with a PostgreSQL `DATABASE_URL` and the Prisma schema. No Vercel, Netlify, Render, Railway, Neon, or Supabase credentials were available in the provided session, so I did not fabricate deployment URLs or claim an unverified production deployment. The public GitHub repository contains the validated source and deployment configuration point (`VITE_API_URL`) for publishing on those services.
+
+- Frontend Deployment Link: Not published because no deployment-provider account or credentials were available.
+- Backend Deployment Link: Not published because no PostgreSQL or backend-hosting credentials were available.
 
 ## 7. Video Explanation
 
-The final submission video explains the original score behavior, the discovered inconsistencies, the important-task interpretation, the new weighted formula, and the validation results. The Google Drive link will be added after upload and sharing configuration.
+The final submission video explains the original score behavior, the discovered inconsistencies, the important-task interpretation, the new weighted formula, the updated interface, and the validation results. It is shared publicly with anyone-with-the-link editor access:
+
+[Watch the TaskNest explanation video](https://drive.google.com/file/d/1cVw7gS-ZySMHNhKfcul_91bZGxp9mKg1/view?usp=sharing)
