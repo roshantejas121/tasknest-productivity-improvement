@@ -9,16 +9,13 @@ async function main() {
   // Seed tasks
   await prisma.task.createMany({
     data: [
-      { title: 'Finish assignment', completed: false },
-      { title: 'Review lecture notes', completed: true },
-      { title: 'Complete coding challenge', completed: false },
+      { title: 'Finish assignment', completed: false, important: true },
+      { title: 'Review lecture notes', completed: true, important: false },
+      { title: 'Complete coding challenge', completed: false, important: false },
     ],
   });
 
-  // Seed initial score
-  await prisma.score.create({
-    data: { value: 40 },
-  });
+  // Productivity is calculated from tasks at read time; no stored score is seeded.
 
   console.log('Database seeded successfully!');
 }

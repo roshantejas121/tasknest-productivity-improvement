@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { ListTodo, Search, Filter } from 'lucide-react';
 import { fetchTasks } from '../services/api';
+import ScoreWidget from '../components/ScoreWidget';
 import TaskCard from '../components/TaskCard';
 import TaskForm from '../components/TaskForm';
-import ScoreWidget from '../components/ScoreWidget';
-import { ListTodo, Search, Filter } from 'lucide-react';
 
 const Dashboard = () => {
   const [tasks, setTasks] = useState([]);
@@ -21,14 +21,29 @@ const Dashboard = () => {
   };
 
   useEffect(() => {
-    getTasks();
+    let active = true;
+    fetchTasks()
+      .then((data) => {
+        if (active) {
+          setTasks(data);
+          setLoading(false);
+        }
+      })
+      .catch((err) => {
+        console.error('Error fetching tasks:', err);
+        if (active) setLoading(false);
+      });
+
+    return () => {
+      active = false;
+    };
   }, []);
 
   return (
     <>
       <header className="welcome-section animate-fade">
         <h1>Dashboard</h1>
-        <p>Welcome back! You have {tasks.filter(t => !t.completed).length} active tasks for today.</p>
+        <p>Welcome back! You have {tasks.filter((task) => !task.completed).length} active tasks for today.</p>
       </header>
 
       <ScoreWidget tasks={tasks} />
@@ -42,7 +57,7 @@ const Dashboard = () => {
               <div className="action-btn"><Filter size={18} /></div>
             </div>
           </div>
-          
+
           {loading ? (
             <div className="animate-fade" style={{ textAlign: 'center', padding: '3rem', color: 'var(--text-muted)' }}>
               Gathering your activities...
@@ -55,7 +70,7 @@ const Dashboard = () => {
                   <p className="text-muted">No tasks found. Your day is looking clear!</p>
                 </div>
               ) : (
-                tasks.map(task => (
+                tasks.map((task) => (
                   <TaskCard key={task.id} task={task} onTaskUpdated={getTasks} />
                 ))
               )}
