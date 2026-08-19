@@ -1,16 +1,19 @@
 import React, { useState } from 'react';
 import { createTask } from '../services/api';
-import { Plus } from 'lucide-react';
+import { Plus, Star } from 'lucide-react';
 
 const TaskForm = ({ onTaskCreated }) => {
   const [title, setTitle] = useState('');
+  const [important, setImportant] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!title.trim()) return;
+
     try {
-      await createTask(title);
+      await createTask(title, important);
       setTitle('');
+      setImportant(false);
       onTaskCreated();
     } catch (err) {
       console.error('Error creating task:', err);
@@ -30,14 +33,23 @@ const TaskForm = ({ onTaskCreated }) => {
             className="styled-input"
           />
         </div>
-        <button type="submit" className="primary-button ">
+        <label className="important-toggle">
+          <input
+            type="checkbox"
+            checked={important}
+            onChange={(e) => setImportant(e.target.checked)}
+          />
+          <Star size={17} fill={important ? 'currentColor' : 'none'} />
+          <span>Mark as important (counts double)</span>
+        </label>
+        <button type="submit" className="primary-button">
           <Plus size={20} strokeWidth={3} />
           <span>Quick Add</span>
         </button>
       </form>
       <div style={{ marginTop: '2rem', padding: '1rem', borderTop: '1px solid #f1f5f9' }}>
         <p className="text-muted" style={{ fontSize: '0.85rem' }}>
-          Assigning tasks helps our AI calculate your productivity score more accurately.
+          Your score is the percentage of task weight completed. Important tasks carry twice the weight.
         </p>
       </div>
     </div>

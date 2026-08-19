@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { Filter, ListTodo, Search } from 'lucide-react';
 import { fetchTasks } from '../services/api';
 import TaskCard from '../components/TaskCard';
-import { ListTodo, Search, Filter } from 'lucide-react';
 
 const Tasks = () => {
   const [tasks, setTasks] = useState([]);
@@ -19,7 +19,22 @@ const Tasks = () => {
   };
 
   useEffect(() => {
-    getTasks();
+    let active = true;
+    fetchTasks()
+      .then((data) => {
+        if (active) {
+          setTasks(data);
+          setLoading(false);
+        }
+      })
+      .catch((err) => {
+        console.error('Error fetching tasks:', err);
+        if (active) setLoading(false);
+      });
+
+    return () => {
+      active = false;
+    };
   }, []);
 
   return (
@@ -46,7 +61,7 @@ const Tasks = () => {
           {tasks.length === 0 ? (
             <p className="text-muted">No tasks found.</p>
           ) : (
-            tasks.map(task => (
+            tasks.map((task) => (
               <TaskCard key={task.id} task={task} onTaskUpdated={getTasks} />
             ))
           )}

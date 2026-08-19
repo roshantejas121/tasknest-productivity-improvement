@@ -396,3 +396,74 @@ body {
     font-size: 4rem;
   }
 }
+
+/* Productivity score and important-task controls */
+.task-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.task-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.important-label {
+  color: #b45309;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.important-button.active {
+  color: #d97706;
+  background: #fef3c7;
+}
+
+.important-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 1rem 0 1.25rem;
+  color: #475569;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.important-toggle input {
+  width: 1rem;
+  height: 1rem;
+  accent-color: var(--primary);
+}
+
+.score-breakdown {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.25rem;
+  margin-top: 1.25rem;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.score-breakdown span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+@media (max-width: 640px) {
+  .task-card-v2 {
+    padding: 1.25rem;
+  }
+
+  .task-main {
+    gap: 0.75rem;
+  }
+
+  .task-text {
+    font-size: 1rem;
+  }
+}
